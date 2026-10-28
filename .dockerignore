@@ -1,0 +1,8 @@
+**
+!Dockerfile
+!requirements-sentinel1.txt
+!app/
+!app/satellite/
+!app/satellite/**
+!scripts/
+!scripts/create_sentinel1_demo.py

@@ -1,0 +1,51 @@
+{
+  "tile_id": "demo-25832",
+  "backscatter_units": "db",
+  "band_indices": {
+    "vv": 1,
+    "vh": 2
+  },
+  "threshold_db": 1.0,
+  "min_baseline_observations": 3,
+  "output_file": "../data/sentinel1_demo/result.geojson",
+  "source": {
+    "name": "Synthetic Sentinel-1-like fixture",
+    "url": "https://dataspace.copernicus.eu/data-collections/copernicus-sentinel-missions/sentinel-1",
+    "product_type": "synthetic dual-polarization sigma0 GeoTIFF",
+    "license": "Synthetic data; no Sentinel-1 product or license is represented.",
+    "imagery_is_synthetic": true,
+    "imagery_selection_note": "Synthetic data used instead of live imagery because time and resource constraints prevented obtaining and preparing a real scene.",
+    "resolution_m": 20,
+    "masking": "One VH no-data pixel uses GeoTIFF nodata -9999."
+  },
+  "scenes": [
+    {
+      "scene_id": "SYNTHETIC-S1-20250201",
+      "product_id": "SYNTHETIC-S1-20250201",
+      "acquired_at": "2025-02-01T06:00:00Z",
+      "relative_orbit": 73,
+      "path": "../data/sentinel1_demo/SYNTHETIC-S1-20250201.tif"
+    },
+    {
+      "scene_id": "SYNTHETIC-S1-20250213",
+      "product_id": "SYNTHETIC-S1-20250213",
+      "acquired_at": "2025-02-13T06:00:00Z",
+      "relative_orbit": 73,
+      "path": "../data/sentinel1_demo/SYNTHETIC-S1-20250213.tif"
+    },
+    {
+      "scene_id": "SYNTHETIC-S1-20250225",
+      "product_id": "SYNTHETIC-S1-20250225",
+      "acquired_at": "2025-02-25T06:00:00Z",
+      "relative_orbit": 73,
+      "path": "../data/sentinel1_demo/SYNTHETIC-S1-20250225.tif"
+    },
+    {
+      "scene_id": "SYNTHETIC-S1-20250309",
+      "product_id": "SYNTHETIC-S1-20250309",
+      "acquired_at": "2025-03-09T06:00:00Z",
+      "relative_orbit": 73,
+      "path": "../data/sentinel1_demo/SYNTHETIC-S1-20250309.tif"
+    }
+  ]
+}

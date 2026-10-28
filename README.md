@@ -419,6 +419,111 @@ http://localhost:8501
 - Git
 - uv
 
+## Sentinel-1 soil-wetness candidate indicator
+
+The separate local workflow in `app/satellite/soil_moisture.py` reads aligned,
+two-band GeoTIFFs containing calibrated Sentinel-1 VV and VH sigma0. It accepts
+linear power or dB input, converts to linear power before building per-pixel
+temporal medians, then reports each polarization's current-versus-baseline
+anomaly in dB. A pixel is a **wetness candidate** only when both polarization
+anomalies meet the configured threshold. This is an auditable backscatter
+anomaly heuristic, not a soil-moisture retrieval or causal claim.
+
+The intended imagery source is the [Copernicus Sentinel-1 collection](https://dataspace.copernicus.eu/data-collections/copernicus-sentinel-missions/sentinel-1).
+Sentinel data are made available on a free, full, and open basis under the
+[Copernicus Sentinel Data Legal Notice](https://sentinels.copernicus.eu/documents/247904/690755/Sentinel_Data_Legal_Notice);
+retain the product attribution and review the notice for the selected product.
+Supply calibrated, terrain-corrected sigma0 rasters from the same relative
+orbit, in EPSG:25832, with consistent dimensions and pixel alignment. Use
+product IDs, acquisition timestamps, units, and resolution from the actual
+products; no live data downloader or credentials are included. GeoTIFF nodata
+and masks are respected. Input raster geometry is validated in EPSG:25832 and
+output GeoJSON cell polygons are reprojected to longitude/latitude for standard
+GeoJSON consumers. Output records use deterministic `s1wet:tile:date:row:column`
+identifiers and are a proposed `iris_staging` file interface; this workflow does
+not write to PostgreSQL.
+
+The included result uses synthetic data instead of live imagery because time
+and resource constraints did not allow acquiring and preparing a real
+Sentinel-1 scene for this exercise. Fixture dates and resolution are
+illustrative, not real acquisition metadata.
+
+### Reproducible synthetic example
+
+Install the task-specific pinned dependencies, generate the synthetic rasters,
+and run the analyzer:
+
+```bash
+python -m pip install -r requirements-sentinel1.txt
+python scripts/create_sentinel1_demo.py
+python -m app.satellite.soil_moisture \
+  --config examples/sentinel1_soil_moisture.config.example.json \
+  --output examples/sentinel1_demo_result.geojson
+python -m unittest discover -s tests -v
+```
+
+The demo writes a GeoJSON FeatureCollection and a companion quality report.
+The checked-in example configuration references the generated rasters in
+`data/sentinel1_demo/`.
+Its small synthetic inputs are generated deterministically and are explicitly
+not Sentinel-1 imagery. To run with real imagery, update the example
+configuration with real product metadata and file paths.
+
+Docker equivalent:
+
+```bash
+docker compose --profile satellite run --build --rm sentinel1-soil-moisture
+```
+
+### Schema, assumptions, and limitations
+
+Each valid pixel feature includes the current scene and product IDs, acquisition time,
+relative orbit, source row/column, VV and VH anomalies, baseline observation
+counts, threshold, and the candidate flag. The report records hashes of source
+rasters and configuration, baseline IDs/date range, valid/rejected coverage,
+and invalid sample counts. The baseline uses all earlier configured
+acquisitions, not the current image, and requires at least three valid baseline
+observations per polarization by default.
+
+#### Example quality report
+
+The reproducible synthetic run uses three baseline acquisitions (2025-02-01,
+2025-02-13, and 2025-02-25 UTC) and current acquisition
+`SYNTHETIC-S1-20250309` (2025-03-09 UTC), all on relative orbit 73. The
+illustrative grid is 20 m; this is fixture metadata, not a measured Sentinel-1
+resolution. On the 2-by-2 fixture grid, 3 of 4 pixels are valid (75% coverage);
+one pixel is rejected because the current VH value is nodata. Of the valid
+pixels, one is flagged as a wetness candidate, with VV and VH anomalies of
+approximately +2 dB each against the three-scene baseline. A VV-only increase
+is not flagged. The configured threshold is 1 dB in both polarizations.
+
+These are synthetic pipeline-validation results, not geographic coverage or
+evidence of soil moisture. The baseline is a same-relative-orbit temporal
+median in linear sigma0 power, with at least three valid observations per
+polarization. Nodata is honored; no spatial speckle filter or terrain, water,
+layover, shadow, incidence-angle, or land-cover masks are applied. Backscatter
+changes can reflect vegetation, surface roughness, water, topography,
+seasonality, crop state, or acquisition geometry; the candidate flag is not a
+causal claim or direct soil-moisture measurement. The full machine-readable
+counts, rejected-pixel reasons, source identifiers, and hashes are in
+[`examples/sentinel1_demo_result_quality_report.json`](examples/sentinel1_demo_result_quality_report.json);
+the representative output is
+[`examples/sentinel1_demo_result.geojson`](examples/sentinel1_demo_result.geojson).
+All 8 automated tests pass, and the same synthetic workflow has been built and
+run through the Docker Compose satellite service.
+
+Temporal medians reduce sensitivity to isolated speckle but do not perform
+spatial speckle filtering. Results can be confounded by vegetation, roughness,
+incidence angle, topography, crop state, orbit/season differences, and
+processing differences. The workflow does not calibrate raw DN, apply
+terrain/layover/shadow/water masks, retrieve volumetric soil moisture, validate
+against ground truth, download products, or load into the database. Real
+acquisition date, licensing/attribution, masks, resolution, and uncertainty
+must be recorded from the selected products. See [IMPLEMENTATION_NOTES.md](IMPLEMENTATION_NOTES.md)
+for the implementation record and demo quality evidence. Per-pixel GeoJSON is
+intended as a small-area validation/staging example; large scenes need
+windowed raster processing and a raster-native or batched output interface.
+
 # Running the Dashboard
 
 ```bash

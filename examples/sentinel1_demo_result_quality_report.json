@@ -1,0 +1,78 @@
+{
+  "indicator": "sentinel1_backscatter_wetness_candidate",
+  "tile_id": "demo-25832",
+  "status": "ok",
+  "input_crs": "EPSG:25832",
+  "output_crs": "OGC:CRS84 (GeoJSON longitude, latitude)",
+  "current_scene_id": "SYNTHETIC-S1-20250309",
+  "current_product_id": "SYNTHETIC-S1-20250309",
+  "current_acquired_at": "2025-03-09T06:00:00+00:00",
+  "relative_orbit": 73,
+  "baseline_scene_ids": [
+    "SYNTHETIC-S1-20250201",
+    "SYNTHETIC-S1-20250213",
+    "SYNTHETIC-S1-20250225"
+  ],
+  "baseline_start": "2025-02-01T06:00:00+00:00",
+  "baseline_end": "2025-02-25T06:00:00+00:00",
+  "baseline_scene_count": 3,
+  "minimum_baseline_observations_per_pixel": 3,
+  "backscatter_input_units": "db",
+  "speckle_treatment": "per-pixel temporal median in linear sigma0 power; no spatial filter",
+  "threshold_db_per_polarization": 1.0,
+  "decision_rule": "candidate when both VV and VH anomalies meet or exceed the threshold",
+  "total_pixels": 4,
+  "valid_pixels": 3,
+  "rejected_pixels": 1,
+  "coverage_fraction": 0.75,
+  "wetness_candidate_pixels": 1,
+  "rejected_pixel_reason_counts": {
+    "missing_current_vv": 0,
+    "missing_current_vh": 1,
+    "insufficient_vv_baseline": 0,
+    "insufficient_vh_baseline": 0
+  },
+  "invalid_vv_samples": 0,
+  "invalid_vh_samples": 1,
+  "source": {
+    "name": "Synthetic Sentinel-1-like fixture",
+    "url": "https://dataspace.copernicus.eu/data-collections/copernicus-sentinel-missions/sentinel-1",
+    "product_type": "synthetic dual-polarization sigma0 GeoTIFF",
+    "license": "Synthetic data; no Sentinel-1 product or license is represented.",
+    "imagery_is_synthetic": true,
+    "imagery_selection_note": "Synthetic data used instead of live imagery because time and resource constraints prevented obtaining and preparing a real scene.",
+    "resolution_m": 20,
+    "masking": "One VH no-data pixel uses GeoTIFF nodata -9999."
+  },
+  "source_files": [
+    {
+      "scene_id": "SYNTHETIC-S1-20250201",
+      "file_name": "SYNTHETIC-S1-20250201.tif",
+      "sha256": "c7ab302833b59e3e6ead4810263342702dbb5c15a2003e6932b9b644d7d5124c",
+      "product_id": "SYNTHETIC-S1-20250201"
+    },
+    {
+      "scene_id": "SYNTHETIC-S1-20250213",
+      "file_name": "SYNTHETIC-S1-20250213.tif",
+      "sha256": "2b60403487aa340995343417657814082d8799e7133eb325fec8ca6a60d49e84",
+      "product_id": "SYNTHETIC-S1-20250213"
+    },
+    {
+      "scene_id": "SYNTHETIC-S1-20250225",
+      "file_name": "SYNTHETIC-S1-20250225.tif",
+      "sha256": "ee024598f2eef04bd3c8d488a4a335f8edb0af0df450e2dbd3b24a2fcac84d08",
+      "product_id": "SYNTHETIC-S1-20250225"
+    },
+    {
+      "scene_id": "SYNTHETIC-S1-20250309",
+      "file_name": "SYNTHETIC-S1-20250309.tif",
+      "sha256": "83f029c1b00a2c3ee3efb97da35e4aef63cf285afd4c5716ff6521b5d5acb776",
+      "product_id": "SYNTHETIC-S1-20250309"
+    }
+  ],
+  "config_sha256": "691795bf8b80d09aae0d88e8d3cc3ade9a6356313e6e40c75a7bb3f550c51cbc",
+  "input_band_indices": {
+    "vv": 1,
+    "vh": 2
+  }
+}

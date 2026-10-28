@@ -1,0 +1,149 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "s1wet:demo-25832:20250309:000000:000000",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              6.8630452668984105,
+              50.98202689278855
+            ],
+            [
+              6.863329982247542,
+              50.98203210290528
+            ],
+            [
+              6.863338235361467,
+              50.98185237751622
+            ],
+            [
+              6.863053521110038,
+              50.98184716743268
+            ],
+            [
+              6.8630452668984105,
+              50.98202689278855
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "tile_id": "demo-25832",
+        "scene_id": "SYNTHETIC-S1-20250309",
+        "product_id": "SYNTHETIC-S1-20250309",
+        "acquired_at": "2025-03-09T06:00:00+00:00",
+        "relative_orbit": 73,
+        "row": 0,
+        "column": 0,
+        "input_crs": "EPSG:25832",
+        "vv_anomaly_db": 1.9999999999999998,
+        "vh_anomaly_db": 1.9999999999999991,
+        "threshold_db": 1.0,
+        "wetness_candidate": true,
+        "baseline_scene_count": 3,
+        "vv_baseline_observation_count": 3,
+        "vh_baseline_observation_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "s1wet:demo-25832:20250309:000000:000001",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              6.863329982247542,
+              50.98203210290528
+            ],
+            [
+              6.8636146976813786,
+              50.98203731232848
+            ],
+            [
+              6.863622949697599,
+              50.98185758690624
+            ],
+            [
+              6.863338235361467,
+              50.98185237751622
+            ],
+            [
+              6.863329982247542,
+              50.98203210290528
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "tile_id": "demo-25832",
+        "scene_id": "SYNTHETIC-S1-20250309",
+        "product_id": "SYNTHETIC-S1-20250309",
+        "acquired_at": "2025-03-09T06:00:00+00:00",
+        "relative_orbit": 73,
+        "row": 0,
+        "column": 1,
+        "input_crs": "EPSG:25832",
+        "vv_anomaly_db": 1.9999999999999998,
+        "vh_anomaly_db": 0.0,
+        "threshold_db": 1.0,
+        "wetness_candidate": false,
+        "baseline_scene_count": 3,
+        "vv_baseline_observation_count": 3,
+        "vh_baseline_observation_count": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "s1wet:demo-25832:20250309:000001:000001",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              6.863338235361467,
+              50.98185237751622
+            ],
+            [
+              6.863622949697599,
+              50.98185758690624
+            ],
+            [
+              6.8636312016291265,
+              50.98167786147745
+            ],
+            [
+              6.863346488390686,
+              50.98167265212062
+            ],
+            [
+              6.863338235361467,
+              50.98185237751622
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "tile_id": "demo-25832",
+        "scene_id": "SYNTHETIC-S1-20250309",
+        "product_id": "SYNTHETIC-S1-20250309",
+        "acquired_at": "2025-03-09T06:00:00+00:00",
+        "relative_orbit": 73,
+        "row": 1,
+        "column": 1,
+        "input_crs": "EPSG:25832",
+        "vv_anomaly_db": 0.0,
+        "vh_anomaly_db": 0.0,
+        "threshold_db": 1.0,
+        "wetness_candidate": false,
+        "baseline_scene_count": 3,
+        "vv_baseline_observation_count": 3,
+        "vh_baseline_observation_count": 3
+      }
+    }
+  ]
+}
